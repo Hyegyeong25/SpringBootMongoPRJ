@@ -143,12 +143,12 @@ public class MelonService implements IMelonService {
         res = melonMapper.insertSong(rList, colNm);
 
         // RedisDB에 저장되지 않았다면, 저장하기
-//        if (!melonCacheMapper.getExistKey(colNm)) {
-//
-//            // RedisDB에 데이터저장하기
-//            res = melonCacheMapper.insertSong(rList, colNm);
-//
-//        }
+        if (!melonCacheMapper.getExistKey(colNm)) {
+
+            // RedisDB에 데이터저장하기
+            res = melonCacheMapper.insertSong(rList, colNm);
+
+        }
 
         // 로그 찍기(추후 찍은 로그를 통해 이 함수에 접근했는지 파악하기 용이하다.)
         log.info(this.getClass().getName() + ".collectMelonSong End!");
@@ -342,7 +342,7 @@ public class MelonService implements IMelonService {
         // 기존 수집된 멜론Top100 수집한 컬렉션 삭제하기
         melonMapper.dropCollection(colNm);
 
-        // 멜론Top100 수집하기
+        // 멜론Top100 수집하기0
         if (this.collectMelonSong() == 1) {
 
             // MongoDB에 데이터저장하기
